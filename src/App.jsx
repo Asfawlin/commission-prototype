@@ -606,40 +606,137 @@ const SMPaysheet = ({ nav }) => {
 const SplitAdj = ({ nav }) => {
   const s = STORES[1];
   const [applied, setApplied] = useState(false);
+  const [martinez, setMartinez] = useState(360);
+  const [reason, setReason] = useState("");
+
+  const total = 600;
+  const patel = total - martinez;
+  const martinezPct = Math.round((martinez / total) * 100);
+  const patelPct = 100 - martinezPct;
+
   return (
     <Phone>
-      <TopBar title="Split Adjudication" subtitle="Deal #5490 - zero-sum" store={s} showBack onBack={() => nav("sm-paysheet")} />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14}}>
+      <TopBar
+        title="Split Adjudication"
+        subtitle="Deal #5490 - zero-sum"
+        store={s}
+        showBack
+        onBack={() => nav("sm-paysheet")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px" }}>
-          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 600 }}>Deal #5490 - Martinez vs Patel · Total: $600</span>
+          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 600 }}>
+            Deal #5490 - Martinez vs Patel · Total: $600
+          </span>
         </div>
+
         <Card>
-          <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text, marginBottom: 12 }}>Reallocation</div>
-          {[{name:"J. Martinez",amt:"$360",pct:60},{name:"A. Patel",amt:"$240",pct:40}].map((r,i) => (
-            <div key={i} style={{ marginBottom: i===0?14:0 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                <span style={{ fontSize: 13, color: COLORS.text }}>{r.name}</span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>{r.amt}</span>
-              </div>
-              <Bar pct={r.pct} color={COLORS.black} />
+          <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text, marginBottom: 12 }}>
+            Reallocation
+          </div>
+
+          <div style={{ marginBottom: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+              <span style={{ fontSize: 13, color: COLORS.text }}>J. Martinez</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>
+                ${martinez}
+              </span>
             </div>
-          ))}
-          <div style={{ fontSize: 11, color: COLORS.textLight, textAlign: "center", marginTop: 10 }}>60% / 40% - adjust before applying</div>
+
+            <input
+              type="range"
+              min="0"
+              max={total}
+              step="10"
+              value={martinez}
+              onChange={(e) => setMartinez(Number(e.target.value))}
+              disabled={applied}
+              style={{ width: "100%", cursor: applied ? "not-allowed" : "pointer" }}
+            />
+          </div>
+
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+              <span style={{ fontSize: 13, color: COLORS.text }}>A. Patel</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>
+                ${patel}
+              </span>
+            </div>
+
+            <input
+              type="range"
+              min="0"
+              max={total}
+              step="10"
+              value={patel}
+              onChange={(e) => setMartinez(total - Number(e.target.value))}
+              disabled={applied}
+              style={{ width: "100%", cursor: applied ? "not-allowed" : "pointer" }}
+            />
+          </div>
+
+          <div style={{ fontSize: 11, color: COLORS.textLight, textAlign: "center", marginTop: 10 }}>
+            {martinezPct}% / {patelPct}% - adjust before applying
+          </div>
         </Card>
-        <div style={{ fontSize: 12, fontWeight: 600, color: COLORS.textMid }}>REASON - required for audit</div>
-        <div style={{ backgroundColor: COLORS.surface, borderRadius: 10, border: `1.5px solid ${COLORS.border}`, padding: "12px 14px", minHeight: 70 }}>
-          <span style={{ fontSize: 13, color: COLORS.textLight }}>Martinez sourced lead; Patel closed only...</span>
+
+        <div style={{ fontSize: 12, fontWeight: 600, color: COLORS.textMid }}>
+          REASON - required for audit
         </div>
+
+        <textarea
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+          disabled={applied}
+          placeholder="Martinez sourced lead; Patel closed only..."
+          style={{
+            width: "100%",
+            minHeight: 80,
+            backgroundColor: COLORS.surface,
+            borderRadius: 10,
+            border: `1.5px solid ${COLORS.border}`,
+            padding: "12px 14px",
+            fontSize: 13,
+            color: COLORS.text,
+            resize: "none",
+            boxSizing: "border-box",
+            fontFamily: "inherit"
+          }}
+        />
+
         <div style={{ backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px" }}>
-          <span style={{ fontSize: 12, color: COLORS.amber }}>This adjustment will void existing acknowledgements and require both salespeople to re-sign.</span>
+          <span style={{ fontSize: 12, color: COLORS.amber }}>
+            This adjustment will void existing acknowledgements and require both salespeople to re-sign.
+          </span>
         </div>
-        {applied
-          ? <div style={{ backgroundColor: COLORS.greenLight, borderRadius: 12, padding: 14, textAlign: "center" }}><span style={{ color: COLORS.green, fontWeight: 700, fontSize: 15 }}>Applied — re-sign requests sent ✓</span></div>
-          : <div onClick={() => setApplied(true)} style={{ backgroundColor: COLORS.red, borderRadius: 12, padding: 14, textAlign: "center", cursor:"pointer" }}>
-              <span style={{ color: COLORS.white, fontWeight: 700, fontSize: 15 }}>Save & Apply</span>
-            </div>
-        }
-        <div style={{ fontSize: 12, color: COLORS.textLight, textAlign: "center" }}>Both reps will receive a re-sign request</div>
+
+        {applied ? (
+          <div style={{ backgroundColor: COLORS.greenLight, borderRadius: 12, padding: 14, textAlign: "center" }}>
+            <span style={{ color: COLORS.green, fontWeight: 700, fontSize: 15 }}>
+              Applied — re-sign requests sent ✓
+            </span>
+          </div>
+        ) : (
+          <div
+            onClick={() => setApplied(true)}
+            style={{
+              backgroundColor: COLORS.red,
+              borderRadius: 12,
+              padding: 14,
+              textAlign: "center",
+              cursor: "pointer"
+            }}
+          >
+            <span style={{ color: COLORS.white, fontWeight: 700, fontSize: 15 }}>
+              Save & Apply
+            </span>
+          </div>
+        )}
+
+        <div style={{ fontSize: 12, color: COLORS.textLight, textAlign: "center" }}>
+          Both reps will receive a re-sign request
+        </div>
       </div>
     </Phone>
   );
