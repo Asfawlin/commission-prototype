@@ -247,7 +247,7 @@ const SPHome = ({ nav }) => {
       <div style={{ padding: 14, display: "flex", flexDirection: "column", gap: 12 }}>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Month to date estimate</div>
-          <div style={{ fontSize: 34, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>$14,250</div>
+          <div style={{ fontSize: 34, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>$6,500</div>
           <div style={{ fontSize: 12, color: COLORS.textLight }}>Updates as deals close</div>
           <div style={{ marginTop: 14 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
