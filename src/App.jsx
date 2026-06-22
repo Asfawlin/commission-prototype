@@ -621,7 +621,7 @@ const SplitAdj = ({ nav }) => {
         subtitle="Deal #5490 - zero-sum"
         store={s}
         showBack
-        onBack={() => nav("sm-paysheet")}
+        onBack={() => nav("sm-home")}
       />
 
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
