@@ -454,7 +454,7 @@ const SMHome = ({ nav }) => {
         </div>
         <div onClick={() => nav("sm-team")} style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}>
           <span style={{ fontSize: 13, color: COLORS.amber, fontWeight: 500 }}>1 unacknowledged sheet - Ryan</span>
-          <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.amber }}>3 due</span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.amber }}>1 due</span>
         </div>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Team pace · June</div>
