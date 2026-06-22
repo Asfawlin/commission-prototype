@@ -322,6 +322,43 @@ const SPPaysheet = ({ nav }) => {
             <span style={{ fontSize: 18, fontWeight: 800, color: COLORS.primary }}>$4,210</span>
           </div>
         </Card>
+        
+        
+        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Commissioned Deal</div>
+
+        <Card>
+          {[
+            ["Deal #5490 - Silverado", "Front gross commission", "+$1,200"],
+            ["Deal #5503 - Tahoe", "Front gross commission", "+$950"],
+            ["Deal #5510 - F-150", "Front gross commission", "+$800"],
+            ["Deal #5521 - Camry", "Front gross commission", "+$450"],
+          ].map(([deal, sub, amount], i) => (
+            <div
+              key={deal}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                paddingBottom: i === 3 ? 0 : 10,
+                marginBottom: i === 3 ? 0 : 10,
+                borderBottom: i === 3 ? "none" : `1px solid ${COLORS.border}`,
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text }}>
+                  {deal}
+                </div>
+                <div style={{ fontSize: 11, color: COLORS.textMid, marginTop: 3 }}>
+                  {sub}
+                </div>
+              </div>
+
+              <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.green }}>
+                {amount}
+              </span>
+            </div>
+          ))}
+        </Card>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Held / Unfunded</div>
         <Card>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
