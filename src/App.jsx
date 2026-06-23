@@ -76,7 +76,7 @@ const Phone = ({ children }) => (
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     position: "relative",
   }}>
-    <div style={{ flex: 1, overflowY: "auto" }}>{children}</div>
+    <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column" }}>{children}</div>
     <div style={{ height:5, width:120, backgroundColor:COLORS.border, borderRadius:3, margin:"4px auto 4px", flexShrink:0 }}/>
   </div>
 );
@@ -212,20 +212,32 @@ const LoginPage = ({ nav }) => (
         <div style={{ textAlign: "right" }}>
           <span style={{ fontSize: 13, color: COLORS.accent, fontWeight: 500 }}>Forgot password?</span>
         </div>
-        <PrimaryBtn label="Sign in as a Sales Person " onClick={() => nav("sp-home")} />
-        <div style={{ textAlign: "center", marginTop: 8 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ flex: 1, height: 1, backgroundColor: COLORS.border }} />
-            <span style={{ fontSize: 12, color: COLORS.textLight }}>or</span>
-            <div style={{ flex: 1, height: 1, backgroundColor: COLORS.border }} />
-          </div>
-          <div onClick={() => nav("sm-home")} style={{ border: `1.5px solid ${COLORS.border}`, borderRadius: 12, padding: "13px", textAlign: "center", marginTop: 12, cursor:"pointer" }}>
+        <PrimaryBtn label="Sign in as a Sales Person" onClick={() => nav("sp-home")} />
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 4 }}>
+          <div style={{ flex: 1, height: 1, backgroundColor: COLORS.border }} />
+          <span style={{ fontSize: 12, color: COLORS.textLight }}>or sign in as</span>
+          <div style={{ flex: 1, height: 1, backgroundColor: COLORS.border }} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div onClick={() => nav("sm-home")} style={{ border: `1.5px solid ${COLORS.border}`, borderRadius: 12, padding: "13px", textAlign: "center", cursor:"pointer" }}>
             <span style={{ fontSize: 14, fontWeight: 600, color: COLORS.text }}>Sign in as a Sales Manager</span>
+          </div>
+          <div onClick={() => nav("fi-home")} style={{ border: `1.5px solid ${COLORS.border}`, borderRadius: 12, padding: "13px", textAlign: "center", cursor:"pointer" }}>
+            <span style={{ fontSize: 14, fontWeight: 600, color: COLORS.text }}>Sign in as a F&amp;I Manager</span>
+          </div>
+          <div onClick={() => nav("bdc-home")} style={{ border: `1.5px solid ${COLORS.border}`, borderRadius: 12, padding: "13px", textAlign: "center", cursor:"pointer" }}>
+            <span style={{ fontSize: 14, fontWeight: 600, color: COLORS.text }}>Sign in as a BDC Manager</span>
+          </div>
+          <div onClick={() => nav("gm-store")} style={{ border: `1.5px solid ${COLORS.border}`, borderRadius: 12, padding: "13px", textAlign: "center", cursor:"pointer" }}>
+            <span style={{ fontSize: 14, fontWeight: 600, color: COLORS.text }}>Sign in as a General Manager</span>
+          </div>
+          <div onClick={() => nav("lite-pay")} style={{ border: `1.5px solid ${COLORS.border}`, borderRadius: 12, padding: "13px", textAlign: "center", cursor:"pointer" }}>
+            <span style={{ fontSize: 14, fontWeight: 600, color: COLORS.text }}>Sign in as Receptionist / Support</span>
           </div>
         </div>
       </div>
-      <div style={{ textAlign:"center", marginTop:24 }}>
-        <span style={{ fontSize:11, color:COLORS.textLight }}></span>
+      <div style={{ textAlign:"center", marginTop:16 }}>
+        <span style={{ fontSize:11, color:COLORS.textLight }}>Internal use only · ZT Automotive</span>
       </div>
     </div>
   </Phone>
@@ -819,101 +831,252 @@ const SMSpiffs = ({ nav }) => {
 // ── F&I MANAGER (exact same content, no nav wired — static for now) ────
 const FIHome = ({ nav }) => {
   const s = STORES[2];
+
   const onTab = (label) => {
     if (label === "Home") nav("fi-home");
     if (label === "Paysheet") nav("fi-paysheet");
     if (label === "Spiffs") nav("fi-spiffs");
   };
+
   return (
     <Phone>
-      <TopBar title="June · F&I" subtitle="PVR & compliance pace" store={s}
-        rightEl={<div style={{ display:"flex", gap:12, alignItems:"center" }}><BellWithBadge count={4} onClick={() => nav("fi-notif")}/><div onClick={() => nav("fi-menu")} style={{cursor:"pointer"}}>{Ic.menu(22,COLORS.text)}</div></div>} />
+      <TopBar
+        title="June · F&I"
+        subtitle="PVR & compliance pace"
+        store={s}
+        rightEl={
+          <div style={{ display:"flex", gap:12, alignItems:"center" }}>
+            <BellWithBadge count={4} onClick={() => nav("fi-notif")} />
+            <div onClick={() => nav("fi-menu")} style={{ cursor:"pointer" }}>
+              {Ic.menu(22, COLORS.text)}
+            </div>
+          </div>
+        }
+      />
+
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>PVR this month</div>
-          <div style={{ fontSize: 34, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>$1,840</div>
-          <div style={{ fontSize: 12, color: COLORS.textLight }}>per vehicle retailed · goal $2,000</div>
+          <div style={{ fontSize: 34, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>
+            $1,840
+          </div>
+          <div style={{ fontSize: 12, color: COLORS.textLight }}>
+            per vehicle retailed · goal $2,000
+          </div>
           <Bar pct={92} color={COLORS.black} />
-          <div style={{ marginTop: 12, display: "flex", gap: 10 }}>
-            <div style={{ flex: 1, backgroundColor: COLORS.surface, borderRadius: 10, padding: 10 }}>
-              <div style={{ fontSize: 11, color: COLORS.textMid }}>Product penetration</div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: COLORS.text }}>68% / 75%</div>
-            </div>
+          <div style={{ fontSize: 11, color: COLORS.textLight, textAlign: "center", marginTop: 6 }}>
+            92% of goal
+          </div>
+
+          <div style={{ marginTop: 12, backgroundColor: COLORS.surface, borderRadius: 10, padding: 10 }}>
+            <div style={{ fontSize: 11, color: COLORS.textMid }}>Product penetration</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: COLORS.text }}>68% / 75%</div>
+            <div style={{ fontSize: 11, color: COLORS.textLight, marginTop: 3 }}>91% of goal</div>
           </div>
         </Card>
-        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Needs Attention</div>
-        <div onClick={() => nav("fi-paysheet")} style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}>
-          <span style={{ fontSize: 13, color: COLORS.amber, fontWeight: 500 }}>4 deliveries not finalized</span>
+
+        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>
+          Exception Queue
+        </div>
+
+        <div
+          onClick={() => nav("fi-deliveries")}
+          style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}
+        >
+          <span style={{ fontSize: 13, color: COLORS.amber, fontWeight: 500 }}>
+            4 incomplete F&I deliveries
+          </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.amber }}>Review</span>
         </div>
-        <div onClick={() => nav("fi-paysheet")} style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}>
-          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>2 compliance flags - missing disclosures</span>
+
+        <div
+          onClick={() => nav("fi-compliance")}
+          style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}
+        >
+          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>
+            2 compliance flags - missing disclosures
+          </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.red }}>Fix</span>
         </div>
-        <div onClick={() => nav("fi-paysheet")} style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}>
-          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>Chargebacks landing this week - $1,200</span>
+
+        <div
+          onClick={() => nav("fi-chargebacks")}
+          style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}
+        >
+          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>
+            Chargebacks landing this week - $1,200
+          </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.red }}>View</span>
         </div>
+
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Commission pace MTD</div>
-          <div style={{ fontSize: 26, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>$6,420</div>
+          <div style={{ fontSize: 26, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>
+            $6,420
+          </div>
         </Card>
       </div>
+
       <BottomNav tabs={fiTabs} active="Home" onTab={onTab} />
     </Phone>
   );
 };
-
 const FIPaysheet = ({ nav }) => {
   const s = STORES[2];
   const [ackDone, setAckDone] = useState(false);
+
   const onTab = (label) => {
     if (label === "Home") nav("fi-home");
     if (label === "Paysheet") nav("fi-paysheet");
     if (label === "Spiffs") nav("fi-spiffs");
   };
+
   return (
     <Phone>
       <TopBar title="June Paysheet" subtitle="Preliminary · review by Jun 30" store={s} />
+
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ display: "flex", gap: 8 }}>
           {["Jun 2026", "May ✓", "Apr ✓"].map((p, i) => (
-            <div key={p} style={{ padding: "7px 12px", borderRadius: 8, backgroundColor: i===0 ? COLORS.black : COLORS.surface, border: `1.5px solid ${COLORS.black}`, cursor:"pointer" }}>
-              <span style={{ fontSize: 11, fontWeight: 700, color: i===0 ? COLORS.white : COLORS.textMid }}>{p}</span>
+            <div
+              key={p}
+              style={{
+                padding: "7px 12px",
+                borderRadius: 8,
+                backgroundColor: i === 0 ? COLORS.black : COLORS.surface,
+                border: `1.5px solid ${COLORS.black}`,
+                cursor: "pointer"
+              }}
+            >
+              <span style={{ fontSize: 11, fontWeight: 700, color: i === 0 ? COLORS.white : COLORS.textMid }}>
+                {p}
+              </span>
             </div>
           ))}
         </div>
+
         <Card>
           <Row label="Back-end gross" value="+$8,200" valueColor={COLORS.green} />
           <Row label="PVR bonus" value="+$600" valueColor={COLORS.green} />
           <Row label="Product split - GAP" value="+$340" valueColor={COLORS.green} />
           <Row label="Chargeback #4471" sub="Cancelled warranty, Mar deal" value="-$220" valueColor={COLORS.red} />
+
           <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 4 }}>
             <span style={{ fontSize: 15, fontWeight: 700 }}>Total</span>
             <span style={{ fontSize: 18, fontWeight: 800, color: COLORS.primary }}>$8,920</span>
           </div>
         </Card>
-        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Compliance Flags</div>
+
+        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>
+          Contributing Deals
+        </div>
+
         <Card>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div>
-              <div style={{ fontSize: 13, color: COLORS.text }}>Deal #5512 - incomplete e-contract</div>
-              <div style={{ fontSize: 12, color: COLORS.textMid, marginTop: 3 }}>Missing signature page 4</div>
+          {[
+            ["Deal #5510 - CX5", "GAP", "+$120"],
+            ["Deal #5512 - Mazda3", "Warranty", "+$180"],
+            ["Deal #5515 - CX90", "Reserve", "+$220"],
+          ].map(([deal, product, amount], i) => (
+            <div
+              key={deal}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                paddingBottom: i === 2 ? 0 : 10,
+                marginBottom: i === 2 ? 0 : 10,
+                borderBottom: i === 2 ? "none" : `1px solid ${COLORS.border}`,
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text }}>
+                  {deal}
+                </div>
+                <div style={{ fontSize: 11, color: COLORS.textMid, marginTop: 3 }}>
+                  {product}
+                </div>
+              </div>
+
+              <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.green }}>
+                {amount}
+              </span>
             </div>
-            <Badge label="Open" color={COLORS.redLight} textColor={COLORS.red} />
-          </div>
+          ))}
         </Card>
-        {ackDone
-          ? <div style={{ backgroundColor: COLORS.greenLight, borderRadius: 12, padding: "15px", textAlign: "center" }}><span style={{ color: COLORS.green, fontWeight: 700, fontSize: 15 }}>Acknowledged ✓</span></div>
-          : <PrimaryBtn label="Acknowledge Paysheet" onClick={() => setAckDone(true)} />
-        }
-        <OutlineBtn label="Flag a Correction" onClick={() => nav("fi-notif")} />
+
+        {ackDone ? (
+          <div style={{ backgroundColor: COLORS.greenLight, borderRadius: 12, padding: "15px", textAlign: "center" }}>
+            <span style={{ color: COLORS.green, fontWeight: 700, fontSize: 15 }}>Acknowledged ✓</span>
+          </div>
+        ) : (
+          <PrimaryBtn label="Acknowledge Paysheet" onClick={() => setAckDone(true)} />
+        )}
+
+        <OutlineBtn label="Flag a Correction" onClick={() => nav("fi-correction")} />
       </div>
+
       <BottomNav tabs={fiTabs} active="Paysheet" onTab={onTab} />
     </Phone>
   );
 };
+const FICorrectionPage = ({ nav }) => {
+  const s = STORES[2];
+  const [submitted, setSubmitted] = useState(false);
 
+  return (
+    <Phone>
+      <TopBar
+        title="Flag a Correction"
+        subtitle="F&I paysheet issue"
+        store={s}
+        showBack
+        onBack={() => nav("fi-paysheet")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        {!submitted ? (
+          <>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text, marginBottom: 8 }}>
+                Reason for correction
+              </div>
+
+              <textarea
+                placeholder="Explain what needs to be corrected..."
+                style={{
+                  width: "100%",
+                  minHeight: 120,
+                  border: `1.5px solid ${COLORS.border}`,
+                  borderRadius: 10,
+                  padding: 12,
+                  fontSize: 13,
+                  resize: "none",
+                  boxSizing: "border-box",
+                  fontFamily: "inherit"
+                }}
+              />
+            </Card>
+
+            <PrimaryBtn
+              label="Submit Correction"
+              onClick={() => setSubmitted(true)}
+            />
+          </>
+        ) : (
+          <Card>
+            <div style={{ color: COLORS.green, fontSize: 18, fontWeight: 800, marginBottom: 8 }}>
+              Submitted ✓
+            </div>
+
+            <div style={{ fontSize: 14, color: COLORS.textMid, lineHeight: 1.5 }}>
+              Your manager will review this request and notify you when a decision is made.
+            </div>
+          </Card>
+        )}
+      </div>
+    </Phone>
+  );
+};
 const FISpiffs = ({ nav }) => {
   const s = STORES[2];
   const onTab = (label) => {
@@ -928,7 +1091,7 @@ const FISpiffs = ({ nav }) => {
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Product Spiffs</div>
         {[
           { name: "GAP attach bonus", val: "$250", desc: "10+ GAP contracts this month", note: "7 of 10", pct: 70 },
-          { name: "Menu completion streak", val: "$150", desc: "Full menu presented every deal", note: "On track", pct: 85 },
+          { name: "F&I Completion Streak", val: "$150", desc: "All F&I product options presented", note: "On track", pct: 85 },
         ].map((sp, i) => (
           <div key={i} style={{ backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "12px 14px" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -949,7 +1112,111 @@ const FISpiffs = ({ nav }) => {
     </Phone>
   );
 };
+const FIDeliveriesPage = ({ nav }) => {
+  const s = STORES[2];
 
+  return (
+    <Phone>
+      <TopBar
+        title="Incomplete F&I Deliveries"
+        subtitle="Needs review"
+        store={s}
+        showBack
+        onBack={() => nav("fi-home")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        {[
+          ["Deal #5512 - CX-5", "Menu not completed", "Review"],
+          ["Deal #5518 - CX-90", "Waiting on funding", "Pending"],
+          ["Deal #5520 - CX-50", "Missing signatures", "Fix"],
+          ["Deal #5524 - Mazda3", "Pending delivery packet", "Review"],
+        ].map(([deal, issue, status]) => (
+          <Card key={deal}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text }}>{deal}</div>
+                <div style={{ fontSize: 12, color: COLORS.textMid, marginTop: 3 }}>{issue}</div>
+              </div>
+              <Badge label={status} />
+            </div>
+          </Card>
+        ))}
+      </div>
+    </Phone>
+  );
+};
+
+const FICompliancePage = ({ nav }) => {
+  const s = STORES[2];
+
+  return (
+    <Phone>
+      <TopBar
+        title="Compliance Flags"
+        subtitle="Missing disclosures"
+        store={s}
+        showBack
+        onBack={() => nav("fi-home")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        {[
+          ["Deal #5512 - incomplete e-contract", "Missing signature page 4"],
+          ["Deal #5518 - missing disclosure", "Product disclosure not signed"],
+        ].map(([deal, issue]) => (
+          <Card key={deal}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text }}>{deal}</div>
+                <div style={{ fontSize: 12, color: COLORS.textMid, marginTop: 3 }}>{issue}</div>
+              </div>
+              <Badge label="Open" color={COLORS.redLight} textColor={COLORS.red} />
+            </div>
+          </Card>
+        ))}
+      </div>
+    </Phone>
+  );
+};
+
+const FIChargebacksPage = ({ nav }) => {
+  const s = STORES[2];
+
+  return (
+    <Phone>
+      <TopBar
+        title="Chargebacks"
+        subtitle="Landing this week"
+        store={s}
+        showBack
+        onBack={() => nav("fi-home")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Card>
+          <Row
+            label="Deal #4471"
+            sub="Cancelled warranty, Mar deal"
+            value="-$220"
+            valueColor={COLORS.red}
+          />
+          <Row
+            label="Deal #4480"
+            sub="Reserve / product cancellation"
+            value="-$980"
+            valueColor={COLORS.red}
+          />
+
+          <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 4 }}>
+            <span style={{ fontSize: 15, fontWeight: 700, color: COLORS.text }}>Total impact</span>
+            <span style={{ fontSize: 18, fontWeight: 800, color: COLORS.red }}>-$1,200</span>
+          </div>
+        </Card>
+      </div>
+    </Phone>
+  );
+};
 // ── BDC MANAGER ────────────────────────────────────────────────────────
 const BDCHome = ({ nav }) => {
   const s = STORES[0];
@@ -966,7 +1233,7 @@ const BDCHome = ({ nav }) => {
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid, marginBottom: 8 }}>Today's funnel</div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            {[{l:"Set",v:24},{l:"Confirmed",v:19},{l:"Shown",v:14},{l:"Sold",v:5}].map((f,i) => (
+            {[{l:"Set Appointments",v:24},{l:"Confirmed",v:19},{l:"Shown",v:14},{l:"Sold",v:5}].map((f,i) => (
               <div key={i} style={{ textAlign: "center" }}>
                 <div style={{ fontSize: 20, fontWeight: 800, color: COLORS.primary }}>{f.v}</div>
                 <div style={{ fontSize: 10, color: COLORS.textMid, marginTop: 2 }}>{f.l}</div>
@@ -974,14 +1241,14 @@ const BDCHome = ({ nav }) => {
             ))}
           </div>
           <div style={{ marginTop: 12, backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 12px" }}>
-            <span style={{ fontSize: 12, color: COLORS.amber, fontWeight: 600 }}>Show rate 73% - the daily lever</span>
+            <span style={{ fontSize: 12, color: COLORS.amber, fontWeight: 600 }}>Show rate 73% - Daily Focus</span>
           </div>
         </Card>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Today's Appointments</div>
         <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.greenLight, borderRadius: 10, padding: "10px 14px" }}>
           <span style={{ fontSize: 13, color: COLORS.green, fontWeight: 500 }}>19 confirmed</span>
         </div>
-        <div onClick={() => nav("bdc-notif")} style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}>
+        <div onClick={() => nav("bdc-unconfirmed")} style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}>
           <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>5 unconfirmed - need a call</span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.red }}>Call list</span>
         </div>
@@ -1002,7 +1269,42 @@ const BDCHome = ({ nav }) => {
     </Phone>
   );
 };
+const BDCUnconfirmedPage = ({ nav }) => {
+  const s = STORES[0];
 
+  return (
+    <Phone>
+      <TopBar
+        title="Unconfirmed Appointments"
+        subtitle="Needs confirmation call"
+        store={s}
+        showBack
+        onBack={() => nav("bdc-home")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        {[
+          ["Sarah Johnson", "10:30 AM", "Needs confirmation"],
+          ["Michael Lee", "1:00 PM", "Left voicemail"],
+          ["Jessica Brown", "3:15 PM", "No answer"],
+          ["David Smith", "4:00 PM", "Needs confirmation"],
+          ["Emily Davis", "5:30 PM", "No answer"],
+        ].map(([name, time, status]) => (
+          <Card key={name}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.text }}>{name}</div>
+                <div style={{ fontSize: 12, color: COLORS.textMid, marginTop: 3 }}>{time}</div>
+                <div style={{ fontSize: 11, color: COLORS.textLight, marginTop: 3 }}>{status}</div>
+              </div>
+              <Badge label="Call" color={COLORS.redLight} textColor={COLORS.red} />
+            </div>
+          </Card>
+        ))}
+      </div>
+    </Phone>
+  );
+};
 const BDCPaysheet = ({ nav }) => {
   const s = STORES[0];
   const [ackDone, setAckDone] = useState(false);
@@ -1031,17 +1333,89 @@ const BDCPaysheet = ({ nav }) => {
             <span style={{ fontSize: 18, fontWeight: 800, color: COLORS.primary }}>$3,920</span>
           </div>
         </Card>
+        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>
+          Bonus Activity
+        </div>
+
+        <Card>
+          <Row
+            label="Shown appointments"
+            sub="14 shown"
+            value="+$700"
+            valueColor={COLORS.green}
+          />
+          <Row
+            label="Sold appointments"
+            sub="5 sold"
+            value="+$420"
+            valueColor={COLORS.green}
+          />
+        </Card>
         {ackDone
           ? <div style={{ backgroundColor: COLORS.greenLight, borderRadius: 12, padding: "15px", textAlign: "center" }}><span style={{ color: COLORS.green, fontWeight: 700, fontSize: 15 }}>Acknowledged ✓</span></div>
           : <PrimaryBtn label="Acknowledge Paysheet" onClick={() => setAckDone(true)} />
         }
-        <OutlineBtn label="Flag a Correction" onClick={() => nav("bdc-notif")} />
+        <OutlineBtn label="Flag a Correction" onClick={() => nav("bdc-correction")} />
       </div>
       <BottomNav tabs={bdcTabs} active="Paysheet" onTab={onTab} />
     </Phone>
   );
 };
+const BDCCorrectionPage = ({ nav }) => {
+  const s = STORES[0];
+  const [submitted, setSubmitted] = useState(false);
 
+  return (
+    <Phone>
+      <TopBar
+        title="Flag a Correction"
+        subtitle="BDC paysheet issue"
+        store={s}
+        showBack
+        onBack={() => nav("bdc-paysheet")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        {!submitted ? (
+          <>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text, marginBottom: 8 }}>
+                Reason for correction
+              </div>
+
+              <textarea
+                placeholder="Explain what needs to be corrected..."
+                style={{
+                  width: "100%",
+                  minHeight: 120,
+                  border: `1.5px solid ${COLORS.border}`,
+                  borderRadius: 10,
+                  padding: 12,
+                  fontSize: 13,
+                  resize: "none",
+                  boxSizing: "border-box",
+                  fontFamily: "inherit"
+                }}
+              />
+            </Card>
+
+            <PrimaryBtn label="Submit Correction" onClick={() => setSubmitted(true)} />
+          </>
+        ) : (
+          <Card>
+            <div style={{ color: COLORS.green, fontSize: 18, fontWeight: 800, marginBottom: 8 }}>
+              Submitted ✓
+            </div>
+
+            <div style={{ fontSize: 14, color: COLORS.textMid, lineHeight: 1.5 }}>
+              Your manager will review this request and notify you when a decision is made.
+            </div>
+          </Card>
+        )}
+      </div>
+    </Phone>
+  );
+};
 const BDCSpiffs = ({ nav }) => {
   const s = STORES[0];
   const onTab = (label) => {
@@ -1052,9 +1426,9 @@ const BDCSpiffs = ({ nav }) => {
   return (
     <Phone>
       <TopBar title="Spiffs" subtitle="Store posted · June 2026" store={s} />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 30, flex: 1 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Show-Rate Spiffs</div>
-        {[{name:"80% show rate bonus", val:"$200", desc:"Hit 80% confirmed-to-shown this month", note:"73% - close", pct:91}].map((sp,i) => (
+        {[{name:"80% show rate bonus", val:"$200", desc:"Hit 80% confirmed-to-shown this month", note:"73% current · 7% to bonus", pct:91}].map((sp,i) => (
           <div key={i} style={{ backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "12px 14px" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.amber }}>{sp.name}</span>
@@ -1065,7 +1439,7 @@ const BDCSpiffs = ({ nav }) => {
             <div style={{ fontSize: 11, color: COLORS.text, marginTop: 5, opacity: 0.7 }}>{sp.note}</div>
           </div>
         ))}
-        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Rep Performance</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Representative Performance</div>
         {[{n:"D. Hayes",v:"94 set · 71 shown"},{n:"L. Brooks",v:"81 set · 58 shown"}].map((r,i) => (
           <Row key={i} label={r.n} value={r.v} />
         ))}
@@ -1079,20 +1453,22 @@ const BDCSpiffs = ({ nav }) => {
 const GMStore = ({ nav }) => {
   const s = STORES[1];
   const onTab = (label) => {
-    if (label === "Store") nav("gm-store");
+    if (label === "Dashboard") nav("gm-store");
     if (label === "Exceptions") nav("gm-except");
     if (label === "Inventory") nav("gm-inv");
     if (label === "Spiffs") nav("gm-spiffs");
   };
   return (
     <Phone>
-      <TopBar title="Store Cockpit" subtitle="June 2026 · read-mostly" store={s}
+      <TopBar title="Store Dashboard" subtitle="June 2026" store={s}
         rightEl={<div style={{ display:"flex", gap:12, alignItems:"center" }}><BellWithBadge count={6} onClick={() => nav("gm-notif")}/><div onClick={() => nav("gm-menu")} style={{cursor:"pointer"}}>{Ic.menu(22,COLORS.text)}</div></div>} />
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Net to date vs objective</div>
           <div style={{ fontSize: 34, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>$410k</div>
           <div style={{ fontSize: 12, color: COLORS.textLight }}>goal $520k by Jun 30</div>
+          <div style={{fontSize: 12, color: COLORS.textMid, marginTop: 4}}>79% of $520k goal </div>
+
           <Bar pct={79} color={COLORS.black} />
         </Card>
         <Card>
@@ -1104,7 +1480,7 @@ const GMStore = ({ nav }) => {
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>OEM Objective Pace</div>
         <Card>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 13, color: COLORS.textMid }}>Units that trip stair-steps</span>
+            <span style={{ fontSize: 13, color: COLORS.textMid }}>OEM Objective Units</span>
             <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.text }}>142 / 160</span>
           </div>
           <Bar pct={89} color={COLORS.black} />
@@ -1124,42 +1500,154 @@ const GMStore = ({ nav }) => {
 
 const GMExceptions = ({ nav }) => {
   const s = STORES[1];
+
   const onTab = (label) => {
     if (label === "Store") nav("gm-store");
     if (label === "Exceptions") nav("gm-except");
     if (label === "Inventory") nav("gm-inv");
     if (label === "Spiffs") nav("gm-spiffs");
   };
+
   return (
     <Phone>
       <TopBar title="Exception Queue" subtitle="Needs GM attention" store={s} />
+
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Aging Splits</div>
-        <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px" }}>
-          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>Deal #5490 - 6 days unresolved</span>
+
+        <div
+          onClick={() => nav("gm-aging-splits")}
+          style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}
+        >
+          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>
+            Deal #5490 - 6 days unresolved
+          </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.red }}>View</span>
         </div>
+
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Unacknowledged Patterns</div>
-        <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px" }}>
-          <span style={{ fontSize: 13, color: COLORS.amber, fontWeight: 500 }}>R. Collins - 3 sheets in a row missed</span>
+
+        <div
+          onClick={() => nav("gm-unack-patterns")}
+          style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}
+        >
+          <span style={{ fontSize: 13, color: COLORS.amber, fontWeight: 500 }}>
+            R. Collins - 3 sheets in a row missed
+          </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.amber }}>Flag</span>
         </div>
+
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Large Chargebacks</div>
-        <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px" }}>
-          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>F&I - Deal #4471 · -$2,200</span>
+
+        <div
+          onClick={() => nav("gm-chargebacks")}
+          style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}
+        >
+          <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>
+            F&I - Deal #4471 · -$2,200
+          </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.red }}>Review</span>
         </div>
+
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Compliance Flags</div>
-        <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px" }}>
-          <span style={{ fontSize: 13, color: COLORS.amber, fontWeight: 500 }}>2 incomplete e-contracts this week</span>
+
+        <div
+          onClick={() => nav("gm-compliance")}
+          style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}
+        >
+          <span style={{ fontSize: 13, color: COLORS.amber, fontWeight: 500 }}>
+            2 incomplete e-contracts this week
+          </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.amber }}>Review</span>
         </div>
       </div>
+
       <BottomNav tabs={gmTabs} active="Exceptions" onTab={onTab} />
     </Phone>
   );
 };
 
+const GMAgingSplitsPage = ({ nav }) => {
+  const s = STORES[1];
+
+  return (
+    <Phone>
+      <TopBar title="Aging Split Disputes" subtitle="Needs review" store={s} showBack onBack={() => nav("gm-except")} />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Card>
+          <Row label="Deal #5490" sub="6 days unresolved" value="Open" valueColor={COLORS.red} />
+          <Row label="Salesperson A" value="50%" />
+          <Row label="Salesperson B" value="50%" />
+          <div style={{ fontSize: 13, color: COLORS.textMid }}>
+            Waiting for Sales Manager decision.
+          </div>
+        </Card>
+      </div>
+    </Phone>
+  );
+};
+
+const GMUnackPatternsPage = ({ nav }) => {
+  const s = STORES[1];
+
+  return (
+    <Phone>
+      <TopBar title="Unacknowledged Patterns" subtitle="Repeated missed sign-offs" store={s} showBack onBack={() => nav("gm-except")} />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Card>
+          <Row label="Employee" value="R. Collins" />
+          <Row label="Apr 30" value="Missed" valueColor={COLORS.amber} />
+          <Row label="May 15" value="Missed" valueColor={COLORS.amber} />
+          <Row label="Jun 1" value="Missed" valueColor={COLORS.amber} />
+          <div style={{ fontSize: 13, color: COLORS.textMid }}>
+           3 missed acknowledgements.
+          </div>
+        </Card>
+      </div>
+    </Phone>
+  );
+};
+
+const GMLargeChargebacksPage = ({ nav }) => {
+  const s = STORES[1];
+
+  return (
+    <Phone>
+      <TopBar title="Large Chargebacks" subtitle="High-impact deductions" store={s} showBack onBack={() => nav("gm-except")} />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Card>
+          <Row label="Deal #4471" sub="Customer cancelled warranty" value="-$2,200" valueColor={COLORS.red} />
+          <Row label="Department" value="F&I" />
+          <Row label="Date" value="Jun 12" />
+          <div style={{ fontSize: 13, color: COLORS.textMid }}>
+            Chargeback will reduce current preliminary pay.
+          </div>
+        </Card>
+      </div>
+    </Phone>
+  );
+};
+
+const GMCompliancePage = ({ nav }) => {
+  const s = STORES[1];
+
+  return (
+    <Phone>
+      <TopBar title="Compliance Flags" subtitle="Incomplete contracts" store={s} showBack onBack={() => nav("gm-except")} />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Card>
+          <Row label="Deal #5512" sub="Missing signature page" value="Open" valueColor={COLORS.red} />
+          <Row label="Deal #5519" sub="Missing disclosure" value="Open" valueColor={COLORS.red} />
+          <Row label="Deal #5524" sub="Incomplete contract packet" value="Open" valueColor={COLORS.red} />
+        </Card>
+      </div>
+    </Phone>
+  );
+};
 const GMInventory = ({ nav }) => {
   const s = STORES[1];
   const onTab = (label) => {
@@ -1178,7 +1666,7 @@ const GMInventory = ({ nav }) => {
           <div style={{ fontSize: 12, color: COLORS.textLight }}>target 45 days</div>
         </Card>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Aged Units With Spiffs Deployed</div>
-        {[{n:"2024 Altima",d:47,spiff:"$500"},{n:"2023 Rogue",d:62,spiff:"$800"},{n:"2024 Sentra",d:38,spiff:"$300"}].map((u,i) => (
+        {[{n:"2024 Altima",d:67,spiff:"$500"},{n:"2023 Rogue",d:78,spiff:"$800"},{n:"2024 Sentra",d:80,spiff:"$300"}].map((u,i) => (
           <Card key={i}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
@@ -1197,36 +1685,189 @@ const GMInventory = ({ nav }) => {
 
 const GMSpiffs = ({ nav }) => {
   const s = STORES[1];
+
   const onTab = (label) => {
     if (label === "Store") nav("gm-store");
     if (label === "Exceptions") nav("gm-except");
     if (label === "Inventory") nav("gm-inv");
     if (label === "Spiffs") nav("gm-spiffs");
   };
+
   return (
     <Phone>
       <TopBar title="Spiffs - Authoring" subtitle="Post/load spiffs for this rooftop" store={s} />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
-        <PrimaryBtn label="+ Post a New Spiff" onClick={() => {}} />
-        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Active Spiffs You Posted</div>
-        {[{n:"Silverado Bonus",amt:"$300",type:"Achievement"},{n:"Weekend push bonus",amt:"$150",type:"Per-unit"},{n:"Aged Rogue clearance",amt:"$800",type:"Per-unit"}].map((sp,i) => (
-          <Card key={i}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text }}>{sp.n}</div>
-                <div style={{ fontSize: 11, color: COLORS.textMid, marginTop: 2 }}>{sp.type}</div>
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
+        <PrimaryBtn label="+ Post a New Spiff" onClick={() => nav("gm-new-spiff")} />
+
+        <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>
+          Active Spiffs You Posted
+        </div>
+        {[
+          { n: "Silverado Bonus", amt: "$300", type: "Achievement", goTo: "gm-spiff-silverado" },
+          { n: "Weekend push bonus", amt: "$150", type: "Per-unit", goTo: "gm-spiff-weekend" },
+          { n: "Aged Rogue clearance", amt: "$800", type: "Per-unit", goTo: "gm-spiff-rogue" },
+        ].map((sp, i) => (
+          <div key={i} onClick={() => nav(sp.goTo)} style={{ cursor: "pointer" }}>
+            <Card>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text }}>{sp.n}</div>
+                  <div style={{ fontSize: 11, color: COLORS.textMid, marginTop: 2 }}>{sp.type} · Active</div>
+                </div>
+                <Badge label={sp.amt} />
               </div>
-              <Badge label={sp.amt} />
-            </div>
-          </Card>
+            </Card>
+          </div>
         ))}
-        <div style={{ fontSize: 11, color: COLORS.textLight, lineHeight: 1.5 }}>GM authority - no higher approval gate needed to post. Detection runs automatically against the deal feed.</div>
       </div>
+
       <BottomNav tabs={gmTabs} active="Spiffs" onTab={onTab} />
     </Phone>
   );
 };
+const GMNewSpiffPage = ({ nav }) => {
+  const s = STORES[1];
+  const [posted, setPosted] = useState(false);
+  const [type, setType] = useState("Per-unit");
 
+  return (
+    <Phone>
+      <TopBar
+        title="Post New Spiff"
+        subtitle="GM authoring"
+        store={s}
+        showBack
+        onBack={() => nav("gm-spiffs")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        {!posted ? (
+          <>
+            <Card>
+              <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.text, marginBottom: 8 }}>
+                Spiff Name
+              </div>
+              <input
+                placeholder="Example: Weekend SUV bonus"
+                style={{
+                  width: "100%",
+                  border: `1.5px solid ${COLORS.border}`,
+                  borderRadius: 10,
+                  padding: 12,
+                  fontSize: 13,
+                  boxSizing: "border-box",
+                  fontFamily: "inherit"
+                }}
+              />
+
+              <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.text, marginTop: 14, marginBottom: 8 }}>
+                Type
+              </div>
+              <div style={{ display: "flex", gap: 8 }}>
+              <div
+                  onClick={() => setType("Per-unit")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <Badge
+                    label="Per-unit"
+                    color={type === "Per-unit" ? COLORS.black : COLORS.amberLight}
+                    textColor={type === "Per-unit" ? COLORS.white : COLORS.amber}
+                  />
+                </div>
+
+                <div
+                  onClick={() => setType("Achievement")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <Badge
+                    label="Achievement"
+                    color={type === "Achievement" ? COLORS.black : COLORS.amberLight}
+                    textColor={type === "Achievement" ? COLORS.white : COLORS.amber}
+                  />
+                </div>
+              </div>
+
+              <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.text, marginTop: 14, marginBottom: 8 }}>
+                Amount
+              </div>
+              <input
+                placeholder="$300"
+                style={{
+                  width: "100%",
+                  border: `1.5px solid ${COLORS.border}`,
+                  borderRadius: 10,
+                  padding: 12,
+                  fontSize: 13,
+                  boxSizing: "border-box",
+                  fontFamily: "inherit"
+                }}
+              />
+
+              <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.text, marginTop: 14, marginBottom: 8 }}>
+                Description
+              </div>
+              <textarea
+                placeholder="Explain the rule for earning this spiff..."
+                style={{
+                  width: "100%",
+                  minHeight: 90,
+                  border: `1.5px solid ${COLORS.border}`,
+                  borderRadius: 10,
+                  padding: 12,
+                  fontSize: 13,
+                  resize: "none",
+                  boxSizing: "border-box",
+                  fontFamily: "inherit"
+                }}
+              />
+            </Card>
+
+            <PrimaryBtn label="Post Spiff" onClick={() => setPosted(true)} />
+          </>
+        ) : (
+          <Card>
+            <div style={{ color: COLORS.green, fontSize: 18, fontWeight: 800, marginBottom: 8 }}>
+              Spiff Posted ✓
+            </div>
+            <div style={{ fontSize: 14, color: COLORS.textMid, lineHeight: 1.5 }}>
+              This spiff is now active for this rooftop.
+            </div>
+          </Card>
+        )}
+      </div>
+    </Phone>
+  );
+};
+
+const GMSpiffDetailPage = ({ nav, name, type, amount, rule }) => {
+  const s = STORES[1];
+
+  return (
+    <Phone>
+      <TopBar
+        title="Spiff Details"
+        subtitle="Active spiff"
+        store={s}
+        showBack
+        onBack={() => nav("gm-spiffs")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Card>
+          <Row label="Name" value={name} />
+          <Row label="Type" value={type} />
+          <Row label="Amount" value={amount} valueColor={COLORS.amber} />
+          <Row label="Status" value="Active" valueColor={COLORS.green} />
+          <Row label="Expires" value="Jun 30" />
+          <div style={{ fontSize: 13, color: COLORS.textMid, lineHeight: 1.5 }}>
+            Rule:{rule}
+          </div>
+        </Card>
+      </div>
+    </Phone>
+  );
+};
 // ── RECEPTIONIST ────────────────────────────────────────────────────────
 const LitePaysheet = ({ nav }) => {
   const s = STORES[0];
@@ -1237,7 +1878,16 @@ const LitePaysheet = ({ nav }) => {
   };
   return (
     <Phone>
-      <TopBar title="June Paysheet" subtitle="Hours & pay · review by Jun 30" store={s} rightEl={<BellWithBadge count={1} onClick={() => nav("lite-notif")}/>} />
+      <TopBar
+            title="June Paysheet"
+            subtitle="Hours & pay · review by Jun 30"
+            store={s}
+            rightEl={
+              <div onClick={() => nav("lite-menu")} style={{ cursor: "pointer" }}>
+                {Ic.menu(22, COLORS.text)}
+              </div>
+            }
+          />
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <Badge label="Lite" color={COLORS.surface} textColor={COLORS.textMid} />
         <Card>
@@ -1258,13 +1908,67 @@ const LitePaysheet = ({ nav }) => {
           ? <div style={{ backgroundColor: COLORS.greenLight, borderRadius: 12, padding: "15px", textAlign: "center" }}><span style={{ color: COLORS.green, fontWeight: 700, fontSize: 15 }}>Acknowledged ✓</span></div>
           : <PrimaryBtn label="Acknowledge Paysheet" onClick={() => setAckDone(true)} />
         }
-        <OutlineBtn label="Flag if Pay is Wrong" onClick={() => nav("lite-notif")} />
+        <OutlineBtn label="Flag if Pay is Wrong" onClick={() => nav("lite-correction")} />
       </div>
       <BottomNav tabs={liteTabs} active="Paysheet" onTab={onTab} />
     </Phone>
   );
 };
+const LiteCorrectionPage = ({ nav }) => {
+  const s = STORES[0];
+  const [submitted, setSubmitted] = useState(false);
 
+  return (
+    <Phone>
+      <TopBar
+        title="Flag Pay Issue"
+        subtitle="Pay correction request"
+        store={s}
+        showBack
+        onBack={() => nav("lite-pay")}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        {!submitted ? (
+          <>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text, marginBottom: 8 }}>
+                What looks wrong?
+              </div>
+
+              <textarea
+                placeholder="Example: My hours are missing, PTO is wrong, or bonus is missing..."
+                style={{
+                  width: "100%",
+                  minHeight: 120,
+                  border: `1.5px solid ${COLORS.border}`,
+                  borderRadius: 10,
+                  padding: 12,
+                  fontSize: 13,
+                  resize: "none",
+                  boxSizing: "border-box",
+                  fontFamily: "inherit"
+                }}
+              />
+            </Card>
+
+            <PrimaryBtn label="Submit Pay Issue" onClick={() => setSubmitted(true)} />
+          </>
+        ) : (
+          <Card>
+            <div style={{ color: COLORS.green, fontSize: 18, fontWeight: 800, marginBottom: 8 }}>
+              Submitted ✓
+            </div>
+
+            <div style={{ fontSize: 14, color: COLORS.textMid, lineHeight: 1.5 }}>
+              Your manager will review this pay issue and notify you when it is resolved.
+            </div>
+          </Card>
+        )}
+      </div>
+    </Phone>
+  );
+};
 const LiteHistory = ({ nav }) => {
   const s = STORES[0];
   const items=[{t:"May 2026 total payout",d:"May 31, 2026",a:1580},{t:"Apr 2026 total payout",d:"Apr 30, 2026",a:1610}];
@@ -1379,7 +2083,7 @@ const SideMenuPage = ({ role = "sp", nav }) => {
   const navByRole = {
     sp:   [{label:"Home",icon:Ic.home,goTo:"sp-home"},{label:"Paysheet",icon:Ic.pay,goTo:"sp-paysheet"},{label:"Goals",icon:Ic.goal,goTo:"sp-goals"},{label:"Spiffs",icon:Ic.star,goTo:"sp-spiffs"}],
     sm:   [{label:"Home",icon:Ic.home,goTo:"sm-home"},{label:"Team",icon:Ic.users,goTo:"sm-team"},{label:"Paysheet",icon:Ic.pay,goTo:"sm-paysheet"},{label:"Spiffs",icon:Ic.star,goTo:"sm-spiffs"},{label:"Split Adjudication",icon:Ic.alert,goTo:"sm-split"}],
-    fi:   [{label:"Home",icon:Ic.home,goTo:"fi-home"},{label:"Paysheet",icon:Ic.pay,goTo:"fi-paysheet"},{label:"Spiffs",icon:Ic.star,goTo:"fi-spiffs"}],
+    fi:   [{label:"Home",icon:Ic.home,goTo:"fi-home"},{label:"Paysheet",icon:Ic.pay,goTo:"fi-paysheet"},{label:"Spiffs",icon:Ic.star,goTo:"fi-spiffs"},{label:"Incomplete F&I Deliveries",icon:Ic.alert,goTo:"fi-deliveries"}, {label:"Compliance Flags",icon:Ic.lock,goTo:"fi-compliance"},{label:"Chargebacks",icon:Ic.dollar,goTo:"fi-chargebacks"}],
     bdc:  [{label:"Home",icon:Ic.home,goTo:"bdc-home"},{label:"Paysheet",icon:Ic.pay,goTo:"bdc-paysheet"},{label:"Spiffs",icon:Ic.star,goTo:"bdc-spiffs"}],
     gm:   [{label:"Store",icon:Ic.box,goTo:"gm-store"},{label:"Exceptions",icon:Ic.alert,goTo:"gm-except"},{label:"Inventory",icon:Ic.list,goTo:"gm-inv"},{label:"Spiffs",icon:Ic.star,goTo:"gm-spiffs"}],
     lite: [{label:"Paysheet",icon:Ic.pay,goTo:"lite-pay"},{label:"History",icon:Ic.clock,goTo:"lite-hist"}],
@@ -1570,13 +2274,19 @@ const SCREENS = {
   "sm-settings":(nav)=> <SettingsPage role="sm" nav={nav} />,
   "fi-home":   (nav) => <FIHome    nav={nav} />,
   "fi-paysheet":(nav)=> <FIPaysheet nav={nav} />,
+  "fi-correction": (nav) => <FICorrectionPage nav={nav} />,
+  "fi-deliveries":  (nav) => <FIDeliveriesPage nav={nav} />,
+  "fi-compliance":  (nav) => <FICompliancePage nav={nav} />,
+  "fi-chargebacks": (nav) => <FIChargebacksPage nav={nav} />,
   "fi-spiffs": (nav) => <FISpiffs  nav={nav} />,
   "fi-notif":  (nav) => <NotifPage  role="fi" nav={nav} />,
   "fi-hist":   (nav) => <HistPage   role="fi" nav={nav} />,
   "fi-menu":   (nav) => <SideMenuPage role="fi" nav={nav} />,
   "fi-settings":(nav)=> <SettingsPage role="fi" nav={nav} />,
   "bdc-home":  (nav) => <BDCHome   nav={nav} />,
+  "bdc-unconfirmed": (nav) => <BDCUnconfirmedPage nav={nav} />,
   "bdc-paysheet":(nav)=><BDCPaysheet nav={nav} />,
+  "bdc-correction": (nav) => <BDCCorrectionPage nav={nav} />,
   "bdc-spiffs":(nav) => <BDCSpiffs nav={nav} />,
   "bdc-notif": (nav) => <NotifPage  role="bdc" nav={nav} />,
   "bdc-hist":  (nav) => <HistPage   role="bdc" nav={nav} />,
@@ -1584,17 +2294,27 @@ const SCREENS = {
   "bdc-settings":(nav)=><SettingsPage role="bdc" nav={nav} />,
   "gm-store":  (nav) => <GMStore   nav={nav} />,
   "gm-except": (nav) => <GMExceptions nav={nav} />,
+  "gm-aging-splits": (nav) => <GMAgingSplitsPage nav={nav} />,
+  "gm-unack-patterns": (nav) => <GMUnackPatternsPage nav={nav} />,
+  "gm-chargebacks": (nav) => <GMLargeChargebacksPage nav={nav} />,
+  "gm-compliance": (nav) => <GMCompliancePage nav={nav} />,
   "gm-inv":    (nav) => <GMInventory nav={nav} />,
   "gm-spiffs": (nav) => <GMSpiffs  nav={nav} />,
+  "gm-new-spiff": (nav) => <GMNewSpiffPage nav={nav} />,
+  "gm-spiff-silverado": (nav) => <GMSpiffDetailPage nav={nav} name="Silverado Bonus" type="Achievement" amount="$300" rule="Sell 5 Silverado units this month." />,
+  "gm-spiff-weekend": (nav) => <GMSpiffDetailPage nav={nav} name="Weekend push bonus" type="Per-unit" amount="$150" rule="Bonus applies to each qualifying weekend sale." />,
+  "gm-spiff-rogue": (nav) => <GMSpiffDetailPage nav={nav} name="Aged Rogue clearance" type="Per-unit" amount="$800" rule="Applies to aged Rogue units selected for clearance." />,
   "gm-notif":  (nav) => <NotifPage  role="gm" nav={nav} />,
   "gm-hist":   (nav) => <HistPage   role="gm" nav={nav} />,
   "gm-menu":   (nav) => <SideMenuPage role="gm" nav={nav} />,
   "gm-settings":(nav)=> <SettingsPage role="gm" nav={nav} />,
   "lite-pay":  (nav) => <LitePaysheet nav={nav} />,
+  "lite-correction": (nav) => <LiteCorrectionPage nav={nav} />,
   "lite-hist": (nav) => <LiteHistory nav={nav} />,
   "lite-notif":(nav) => <NotifPage   role="lite" nav={nav} />,
   "lite-menu": (nav) => <SideMenuPage role="lite" nav={nav} />,
   "lite-settings":(nav)=><SettingsPage role="lite" nav={nav} />,
+  "lite-menu": (nav) => <SideMenuPage role="lite" nav={nav} />,
 };
 
 export default function App() {
