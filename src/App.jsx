@@ -256,7 +256,7 @@ const SPHome = ({ nav }) => {
     <Phone>
       <TopBar title="June · Jorge M " subtitle="Month to date estimate" store={s}
         rightEl={<div style={{ display:"flex", gap:12, alignItems:"center" }}><BellWithBadge count={2} onClick={() => nav("sp-notif")}/><div onClick={() => nav("sp-menu")} style={{cursor:"pointer"}}>{Ic.menu(22,COLORS.text)}</div></div>} />
-      <div style={{ padding: 14, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ padding: 14, display: "flex", flexDirection: "column", gap: 12, flex: 1 }}>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Month to date estimate</div>
           <div style={{ fontSize: 34, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>$6,500</div>
@@ -404,7 +404,7 @@ const SPGoals = ({ nav }) => {
   return (
     <Phone>
       <TopBar title="My Goals" subtitle="June 2026" store={s} />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14, flex:1 }}>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Units this month</div>
           <div style={{ fontSize: 30, fontWeight: 600, color: COLORS.primary, margin: "4px 0" }}>9 / 18</div>
@@ -608,7 +608,7 @@ const SMPaysheet = ({ nav }) => {
       display: "flex",
       flexDirection: "column",
       gap: 14,
-      minHeight: "60%",
+      flex: 1,
     }}
   >
     <Card>
@@ -802,7 +802,7 @@ const SMSpiffs = ({ nav }) => {
   return (
     <Phone>
       <TopBar title="Spiffs" subtitle="Team-wide · June 2026" store={s} />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 39 }}>
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 39, flex: 1 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Active Spiffs</div>
         {[{name:"Silverado Bonus",val:"$300",desc:"Team: 2 of 3 sold",pct:67},{name:"Weekend push bonus",val:"$150",desc:"Not earned yet",pct:0}].map((sp,i) => (
           <div key={i} style={{ backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "12px 14px" }}>
@@ -1087,7 +1087,7 @@ const FISpiffs = ({ nav }) => {
   return (
     <Phone>
       <TopBar title="Spiffs" subtitle="Store posted · June 2026" store={s} />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14, flex:1 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Product Spiffs</div>
         {[
           { name: "GAP attach bonus", val: "$250", desc: "10+ GAP contracts this month", note: "7 of 10", pct: 70 },
@@ -1512,7 +1512,7 @@ const GMExceptions = ({ nav }) => {
     <Phone>
       <TopBar title="Exception Queue" subtitle="Needs GM attention" store={s} />
 
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14, flex : 1 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Aging Splits</div>
 
         <div
@@ -1659,7 +1659,7 @@ const GMInventory = ({ nav }) => {
   return (
     <Phone>
       <TopBar title="Inventory" subtitle="Aged units & day supply" store={s} />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14, flex : 1 }}>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Day supply</div>
           <div style={{ fontSize: 34, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>52 days</div>
@@ -1888,7 +1888,7 @@ const LitePaysheet = ({ nav }) => {
               </div>
             }
           />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
         <Badge label="Lite" color={COLORS.surface} textColor={COLORS.textMid} />
         <Card>
           <Row label="Hours worked" value="86.5" />
@@ -1979,7 +1979,7 @@ const LiteHistory = ({ nav }) => {
   return (
     <Phone>
       <TopBar title="Pay History" store={s} showBack onBack={() => nav("lite-pay")} />
-      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14, flex : 1 }}>
         {items.map((h,i) => (
           <Row key={i} label={h.t} sub={h.d} value={`+$${h.a.toLocaleString()}`} valueColor={COLORS.green} />
         ))}
