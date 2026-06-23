@@ -407,17 +407,17 @@ const SPGoals = ({ nav }) => {
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Units this month</div>
-          <div style={{ fontSize: 30, fontWeight: 600, color: COLORS.primary, margin: "4px 0" }}>12 / 18</div>
+          <div style={{ fontSize: 30, fontWeight: 600, color: COLORS.primary, margin: "4px 0" }}>9 / 18</div>
           <Bar pct={67} color={COLORS.black} />
           <div style={{ marginTop: 12, backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 12px" }}>
-            <span style={{ fontSize: 12, color: COLORS.amber, fontWeight: 600 }}>2 more units unlock +$800 retroactive</span>
+            <span style={{ fontSize: 12, color: COLORS.amber, fontWeight: 600 }}>9 more units to reach monthly goal</span>
           </div>
         </Card>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Pay Tiers</div>
         {[
           { range: "1 – 7 units", rate: "$200 per car", note: "base", active: false },
-          { range: "8 – 10 units", rate: "$300 per car", note: "+$800 retroactive", active: true },
-          { range: "11+ units", rate: "$400 per car", note: "+$2,400 retroactive", active: false },
+          { range: "8 – 10 units", rate: "$300 per car", note: "", active: true },
+          { range: "11+ units", rate: "$400 per car", note: "", active: false },
         ].map((t, i) => (
           <div key={i} style={{ backgroundColor: t.active ? COLORS.black : COLORS.surface, borderRadius: 12, border: `1.5px solid ${COLORS.black}`, padding: "12px 14px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
             <div>
