@@ -470,7 +470,7 @@ const SPSpiffs = ({ nav }) => {
             <Badge label="No payout" color={COLORS.surface} textColor={COLORS.textMid} />
           </div>
           <Bar pct={52} color={COLORS.textLight} />
-          <div style={{ fontSize: 11, color: COLORS.textLight, marginTop: 6 }}>informational only - no payout tied to this number</div>
+          <div style={{ fontSize: 11, color: COLORS.textLight, marginTop: 6 }}></div>
         </Card>
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Spiffs earned MTD</div>
@@ -1556,7 +1556,7 @@ const GMExceptions = ({ nav }) => {
           style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}
         >
           <span style={{ fontSize: 13, color: COLORS.amber, fontWeight: 500 }}>
-            2 incomplete e-contracts this week
+            3 incomplete e-contracts this week
           </span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.amber }}>Review</span>
         </div>
