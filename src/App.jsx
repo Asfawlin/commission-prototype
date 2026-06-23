@@ -1937,7 +1937,7 @@ const LiteCorrectionPage = ({ nav }) => {
               </div>
 
               <textarea
-                placeholder="Example: My hours are missing, PTO is wrong, or bonus is missing..."
+                placeholder="Explain what needs to be corrected..."
                 style={{
                   width: "100%",
                   minHeight: 120,
