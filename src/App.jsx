@@ -1903,7 +1903,7 @@ const LitePaysheet = ({ nav }) => {
           <div style={{ fontSize: 13, color: COLORS.textMid }}>PTO balance</div>
           <div style={{ fontSize: 22, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>32 hours</div>
         </Card>
-        <div style={{ fontSize: 11, color: COLORS.textLight, textAlign: "center" }}>no goals or spiffs - pay + sign-off only</div>
+        <div style={{ fontSize: 11, color: COLORS.textLight, textAlign: "center" }}></div>
         {ackDone
           ? <div style={{ backgroundColor: COLORS.greenLight, borderRadius: 12, padding: "15px", textAlign: "center" }}><span style={{ color: COLORS.green, fontWeight: 700, fontSize: 15 }}>Acknowledged ✓</span></div>
           : <PrimaryBtn label="Acknowledge Paysheet" onClick={() => setAckDone(true)} />
