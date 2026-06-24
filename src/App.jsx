@@ -264,12 +264,12 @@ const SPHome = ({ nav }) => {
           <div style={{ marginTop: 14 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
               <span style={{ fontSize: 13, color: COLORS.textMid }}>Unit goal</span>
-              <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.text }}>12 / 18</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.text }}>9 / 18</span>
             </div>
             <Bar pct={67} color={COLORS.black} />
           </div>
           <div style={{ marginTop: 12, backgroundColor: COLORS.amberLight, borderRadius: 10, padding: "10px 12px" }}>
-            <span style={{ fontSize: 12, color: COLORS.amber, fontWeight: 600 }}>2 units from Tier 3 = +$150/unit retroactive</span>
+            <span style={{ fontSize: 12, color: COLORS.amber, fontWeight: 600 }}>2 units away from Tier 3 (+$100/car)</span>
           </div>
         </Card>
 
