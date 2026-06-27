@@ -1245,13 +1245,17 @@ const BDCHome = ({ nav }) => {
           </div>
         </Card>
         <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>Today's Appointments</div>
-        <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.greenLight, borderRadius: 10, padding: "10px 14px" }}>
+        
+        <div onClick ={() => nav("bdc-confirmed")} style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.greenLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}>
           <span style={{ fontSize: 13, color: COLORS.green, fontWeight: 500 }}>19 confirmed</span>
         </div>
+
         <div onClick={() => nav("bdc-unconfirmed")} style={{ display: "flex", justifyContent: "space-between", backgroundColor: COLORS.redLight, borderRadius: 10, padding: "10px 14px", cursor: "pointer" }}>
+          
           <span style={{ fontSize: 13, color: COLORS.red, fontWeight: 500 }}>5 unconfirmed - need a call</span>
           <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.red }}>Call list</span>
         </div>
+
         <Card>
           <div style={{ fontSize: 13, color: COLORS.textMid }}>Bonus pace MTD</div>
           <div style={{ fontSize: 26, fontWeight: 800, color: COLORS.primary, margin: "4px 0" }}>$1,920</div>
@@ -1284,20 +1288,95 @@ const BDCUnconfirmedPage = ({ nav }) => {
 
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         {[
-          ["Sarah Johnson", "10:30 AM", "Needs confirmation"],
-          ["Michael Lee", "1:00 PM", "Left voicemail"],
-          ["Jessica Brown", "3:15 PM", "No answer"],
-          ["David Smith", "4:00 PM", "Needs confirmation"],
-          ["Emily Davis", "5:30 PM", "No answer"],
-        ].map(([name, time, status]) => (
+          ["Sarah Johnson", "10:30 AM", "Needs confirmation", "Source: Website"],
+          ["Michael Lee", "1:00 PM", "Left voicemail","Source: Walk-in" ],
+          ["Jessica Brown", "3:15 PM", "No answer","Source: Walk-in" ],
+          ["David Smith", "4:00 PM", "Needs confirmation",  "Source: Referral"],
+          ["Emily Davis", "5:30 PM", "No answer",  "Source: Website"],
+        ].map(([name, time, status, source]) => (
           <Card key={name}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
                 <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.text }}>{name}</div>
                 <div style={{ fontSize: 12, color: COLORS.textMid, marginTop: 3 }}>{time}</div>
                 <div style={{ fontSize: 11, color: COLORS.textLight, marginTop: 3 }}>{status}</div>
+                <div style={{ fontSize: 11, color: COLORS.textLight, marginTop: 3 }}>{source}</div>
               </div>
               <Badge label="Call" color={COLORS.redLight} textColor={COLORS.red} />
+            </div>
+          </Card>
+        ))}
+      </div>
+    </Phone>
+  );
+};
+const BDCConfirmedPage = ({ nav }) => {
+  const s = STORES[0];
+
+  return (
+    <Phone>
+      <TopBar
+        title="Confirmed Appointments"
+        store={s}
+        showBack
+        onBack={() => nav("bdc-home")}
+      />
+
+      <div
+        style={{
+          padding: 16,
+          display: "flex",
+          flexDirection: "column",
+          gap: 14,
+        }}
+      >
+        {[
+          ["Johnson Mark", "11:30 AM", "Source: Service Customer"],
+          ["Xavier Baker", "3:00 PM", "Source: Website"],
+          ["Jessica Brown", "3:15 PM", "Source: Walk-in"],
+          ["Marie Czapla", "5:00 PM", "Source: Phone Call"],
+          ["Jess Danzi", "7:00 PM", "Source: Referral"],
+          ["Audrey Michael", "12:30 PM", "Source: Referral"],
+        ].map(([name, time, status]) => (
+          <Card key={name}>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: COLORS.text,
+                }}
+              >
+                {name}
+              </div>
+
+              <div
+                style={{
+                  fontSize: 13,
+                  color: COLORS.textMid,
+                  marginTop: 4,
+                }}
+              >
+                {time}
+              </div>
+
+              <div
+                style={{
+                  fontSize: 12,
+                  color: COLORS.textLight,
+                  marginTop: 4,
+                }}
+              >
+                {status}
+              </div>
             </div>
           </Card>
         ))}
@@ -2285,6 +2364,7 @@ const SCREENS = {
   "fi-settings":(nav)=> <SettingsPage role="fi" nav={nav} />,
   "bdc-home":  (nav) => <BDCHome   nav={nav} />,
   "bdc-unconfirmed": (nav) => <BDCUnconfirmedPage nav={nav} />,
+  "bdc-confirmed": (nav) => <BDCConfirmedPage nav = {nav} />,
   "bdc-paysheet":(nav)=><BDCPaysheet nav={nav} />,
   "bdc-correction": (nav) => <BDCCorrectionPage nav={nav} />,
   "bdc-spiffs":(nav) => <BDCSpiffs nav={nav} />,
