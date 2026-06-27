@@ -304,7 +304,24 @@ const SPPaysheet = ({ nav }) => {
   };
   return (
     <Phone>
-      <TopBar title="June Paysheet" subtitle="Preliminary · review by Jun 30" store={s} />
+        <TopBar
+          title="June Paysheet"
+          subtitle="Preliminary · review by Jun 30"
+          store={s}
+          rightEl={
+            <div
+              onClick={() => nav("sp-export")}
+              style={{
+                cursor: "pointer",
+                fontSize: 13,
+                fontWeight: 700,
+                color: COLORS.primary,
+              }}
+            >
+              Export
+            </div>
+          }
+        />
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ display: "flex", gap: 8 }}>
           {["Jun 2026", "May ✓", "Apr ✓"].map((p, i) => (
@@ -392,7 +409,100 @@ const SPPaysheet = ({ nav }) => {
     </Phone>
   );
 };
+const SPExportPage = ({ nav }) => {
+  const s = STORES[1];
+  const [done, setDone] = useState(false);
 
+  return (
+    <Phone>
+      <TopBar
+        title="Export Paysheet"
+        subtitle="Download as PDF"
+        store={s}
+        showBack
+        onBack={() => nav("sp-paysheet")}
+      />
+
+      <div
+        style={{
+          padding: 16,
+          display: "flex",
+          flexDirection: "column",
+          gap: 14,
+        }}
+      >
+        {!done ? (
+          <>
+            <Card>
+              <div
+                style={{
+                  textAlign: "center",
+                  fontSize: 42,
+                  marginBottom: 10,
+                }}
+              >
+                📄
+              </div>
+
+              <div
+                style={{
+                  textAlign: "center",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: COLORS.text,
+                }}
+              >
+                Export as PDF
+              </div>
+
+              <div
+                style={{
+                  textAlign: "center",
+                  fontSize: 12,
+                  color: COLORS.textMid,
+                  marginTop: 8,
+                  lineHeight: 1.5,
+                }}
+              >
+                Download a PDF copy of your June paysheet.
+              </div>
+            </Card>
+
+            <PrimaryBtn
+              label="Export PDF"
+              onClick={() => setDone(true)}
+            />
+          </>
+        ) : (
+          <Card>
+            <div
+              style={{
+                color: COLORS.green,
+                fontSize: 20,
+                fontWeight: 800,
+                textAlign: "center",
+                marginBottom: 8,
+              }}
+            >
+              Export Successful ✓
+            </div>
+
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: 14,
+                color: COLORS.textMid,
+                lineHeight: 1.5,
+              }}
+            >
+              Your paysheet has been exported as a PDF.
+            </div>
+          </Card>
+        )}
+      </div>
+    </Phone>
+  );
+};
 const SPGoals = ({ nav }) => {
   const s = STORES[0];
   const onTab = (label) => {
@@ -548,7 +658,49 @@ const SMHome = ({ nav }) => {
     </Phone>
   );
 };
+const ExportPDFPage = ({ nav, backTo, storeIndex = 0 }) => {
+  const s = STORES[storeIndex];
+  const [done, setDone] = useState(false);
 
+  return (
+    <Phone>
+      <TopBar
+        title="Export Paysheet"
+        subtitle="Download as PDF"
+        store={s}
+        showBack
+        onBack={() => nav(backTo)}
+      />
+
+      <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
+        {!done ? (
+          <>
+            <Card>
+              <div style={{ textAlign: "center", fontSize: 42, marginBottom: 10 }}>📄</div>
+              <div style={{ textAlign: "center", fontSize: 15, fontWeight: 700, color: COLORS.text }}>
+                Export as PDF
+              </div>
+              <div style={{ textAlign: "center", fontSize: 12, color: COLORS.textMid, marginTop: 8, lineHeight: 1.5 }}>
+                Download a PDF copy of this paysheet.
+              </div>
+            </Card>
+
+            <PrimaryBtn label="Export PDF" onClick={() => setDone(true)} />
+          </>
+        ) : (
+          <Card>
+            <div style={{ color: COLORS.green, fontSize: 20, fontWeight: 800, textAlign: "center", marginBottom: 8 }}>
+              Export Successful ✓
+            </div>
+            <div style={{ textAlign: "center", fontSize: 14, color: COLORS.textMid, lineHeight: 1.5 }}>
+              Your paysheet has been exported as a PDF.
+            </div>
+          </Card>
+        )}
+      </div>
+    </Phone>
+  );
+};
 const SMTeam = ({ nav }) => {
   const s = STORES[1];
   const reps=[{init:"JM",name:"Jorge Martinez",units:9,gross:20200,tier:"1 unit to Tier 3 - +$500"},{init:"AP",name:"Adam Patel",units:8,gross:15000},{init:"KT",name:"Kyle Thompson",units:6,gross:13100,tier:"2 to Tier 2 - +$300"},{init:"RC",name:"Ryan Collins",units:4,gross:10500,flag:"Sheet unacknowledged"}];
@@ -600,7 +752,7 @@ const SMPaysheet = ({ nav }) => {
   };
   return (
 <Phone>
-  <TopBar title="Paysheet" subtitle="Override pay - May 2026" store={s} />
+  <TopBar title="Paysheet" subtitle="Override pay - May 2026" store={s} rightEl={<div onClick={() => nav("sm-export")} style={{ cursor: "pointer", fontSize: 13, fontWeight: 700, color: COLORS.primary }}>Export</div>} />
 
   <div
     style={{
@@ -933,7 +1085,7 @@ const FIPaysheet = ({ nav }) => {
 
   return (
     <Phone>
-      <TopBar title="June Paysheet" subtitle="Preliminary · review by Jun 30" store={s} />
+      <TopBar title="June Paysheet" subtitle="Preliminary · review by Jun 30" store={s} rightEl={<div onClick={() => nav("fi-export")} style={{ cursor: "pointer", fontSize: 13, fontWeight: 700, color: COLORS.primary }}>Export</div>} />
 
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ display: "flex", gap: 8 }}>
@@ -1394,7 +1546,7 @@ const BDCPaysheet = ({ nav }) => {
   };
   return (
     <Phone>
-      <TopBar title="June Paysheet" subtitle="Semi-variable · review by Jun 30" store={s} />
+      <TopBar title="June Paysheet" subtitle="Semi-variable · review by Jun 30" store={s} rightEl={<div onClick={() => nav("bdc-export")} style={{ cursor: "pointer", fontSize: 13, fontWeight: 700, color: COLORS.primary }}>Export</div>} />
       <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ display: "flex", gap: 8 }}>
           {["Jun 2026", "May ✓", "Apr ✓"].map((p, i) => (
@@ -1962,8 +2114,9 @@ const LitePaysheet = ({ nav }) => {
             subtitle="Hours & pay · review by Jun 30"
             store={s}
             rightEl={
-              <div onClick={() => nav("lite-menu")} style={{ cursor: "pointer" }}>
-                {Ic.menu(22, COLORS.text)}
+              <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                <div onClick={() => nav("lite-export")} style={{ cursor: "pointer", fontSize: 13, fontWeight: 700, color: COLORS.primary }}>Export</div>
+                <div onClick={() => nav("lite-menu")} style={{ cursor: "pointer" }}>{Ic.menu(22, COLORS.text)}</div>
               </div>
             }
           />
@@ -2342,6 +2495,8 @@ const SCREENS = {
   "sp-hist":   (nav) => <HistPage   role="sp" nav={nav} />,
   "sp-menu":   (nav) => <SideMenuPage role="sp" nav={nav} />,
   "sp-settings":(nav)=> <SettingsPage role="sp" nav={nav} />,
+  "sp-export": (nav) => <SPExportPage nav={nav} />,
+  "export-paysheet": (nav) => <ExportPaysheetPage nav={nav} />,
   "sm-home":   (nav) => <SMHome    nav={nav} />,
   "sm-team":   (nav) => <SMTeam    nav={nav} />,
   "sm-paysheet":(nav)=> <SMPaysheet nav={nav} />,
@@ -2395,6 +2550,11 @@ const SCREENS = {
   "lite-menu": (nav) => <SideMenuPage role="lite" nav={nav} />,
   "lite-settings":(nav)=><SettingsPage role="lite" nav={nav} />,
   "lite-menu": (nav) => <SideMenuPage role="lite" nav={nav} />,
+  "sp-export": (nav) => <ExportPDFPage nav={nav} backTo="sp-paysheet" storeIndex={0} />,
+  "sm-export": (nav) => <ExportPDFPage nav={nav} backTo="sm-paysheet" storeIndex={1} />,
+  "fi-export": (nav) => <ExportPDFPage nav={nav} backTo="fi-paysheet" storeIndex={2} />,
+  "bdc-export": (nav) => <ExportPDFPage nav={nav} backTo="bdc-paysheet" storeIndex={0} />,
+  "lite-export": (nav) => <ExportPDFPage nav={nav} backTo="lite-pay" storeIndex={0} />,
 };
 
 export default function App() {
